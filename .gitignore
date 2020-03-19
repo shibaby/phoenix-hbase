@@ -1,0 +1,8 @@
+/out
+/.idea
+/.gradle
+/build
+/out
+/libs
+/src/main/java/cn/togeek/generated
+/src/test

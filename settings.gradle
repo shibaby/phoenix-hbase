@@ -1,0 +1,23 @@
+/*
+ * 版权声明 2013-2019 西安图迹信息科技有限公司
+ * <p>
+ * 本软件系togeek.cn独立开发软件，togeek.cn依法独立享有该软件之所有权利，
+ * 此软件为商业软件提供付费使用。该软件使用者（含个人、法人或其它组织）。
+ * <p>
+ * 1. 非经togeek.cn授权许可，不得将之用于盈利或非盈利性的任何用途。
+ * 2. 为适应实际的计算机应用环境，对其功能、性能、界面，可以进行必要的修改，但不得去除Powered By：togeek.cn的标示。
+ *    未经togeek.cn书面授权许可，不得向任何第三方提供修改后的软件。
+ * 3. 使用该软件必须保留togeek.cn的版权声明，将该软件从原有自然语言文字转换成另一自然语言文字的，仍应注明出处，
+ *    并不得向任何第三方提供修改后的软件。
+ * 4. 不得有其他侵犯togeek.cn软件版权之行为。
+ * 凡有上述侵权行为的个人、法人或其它组织，必须立即停止侵权并对其侵权造成的一切不良后果承担全部责任。
+ * 对此前，尤其是此后侵犯togeek.cn版权的行为，togeek.cn将依据《著作权法》、《计算机软件保护条例》 等相关法律、
+ * 法规追究其经济责任和法律责任。
+ */
+
+// for local test
+//include ':service'
+//project(':service').projectDir = file('D:\\togeekproject\\base\\service')
+//
+//include ':mongo-extension'
+//project(':mongo-extension').projectDir = file('D:\\togeekproject\\base\\mongo-extension')

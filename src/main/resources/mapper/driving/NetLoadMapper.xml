@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.togeek.mapper.driving.NetLoadMapper">
+
+    <resultMap id="rmNetLoad" type="cn.togeek.entity.driving.NetLoad">
+        <result column="id" property="id" />
+        <result column="time" property="time" typeHandler="cn.togeek.util.LocalDateTimeHandler" />
+        <result column="real_load" property="realLoad" />
+        <result column="forecast_load" property="forecastLoad" />
+    </resultMap>
+    
+    <select id="getNetLoadList" resultMap="rmNetLoad">
+        SELECT
+            "id",
+            "time",
+            TO_NUMBER("real_load") AS real_load,
+            TO_NUMBER("forecast_load") AS forecast_load
+        FROM "t_net_load"
+        WHERE "time" &gt;= #{start} AND "time" &lt; #{end}
+        ORDER BY "time" ASC
+    </select>
+</mapper>

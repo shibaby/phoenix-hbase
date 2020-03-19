@@ -1,0 +1,109 @@
+server:
+  port: 8089
+  servlet:
+    context-path: /trade-center-analysis
+
+togeek:
+  k8s:
+    enabled: false
+  authorization:
+    enabled: true
+  liquibase:
+    enabled:
+      namespace: ""
+    k8s:
+      namespace: ""
+
+dev:
+  token: eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJ0b2dlZWsiLCJuYW1lIjoi6YKT6Zu3IiwiaWQiOiJERU5HTEVJMzYifQ.8Wl0mmgQKrOW2TGFfeZkyOi7j7C3iYtcR-3GCgSYMsTdllbvZur6ejGhy87tGtSjFxh4lnyshdW0Mjks0HB7W44DT9cvpOHqbSqiN5VmnmZaaioAAsMd-0Fh4rv9_IX7UAkj2n4vdywuqHaaJWvtp_SYttQmWrRi_Lmh0RsLiieNszEm0JCGfaxrTitwJstPdAmpZ8d4dvFgLUvE1nzmwRtSLoDXXY9qsUaUGjyS6Nn2PC84WNCMhxAP0H8JPSNAOPcvIE0-5_3YvO6B-7MEwSxal3R5Yvf55HYnfUpYryAHyRKxHqOIdykWjm9Oda305aIwOxyESYBw0XDsz6mVWA
+
+service:
+  api:
+    url: http://www.baidu.com
+
+spring:
+  servlet:
+    multipart:
+      max-file-size: 30MB
+      max-request-size: 30MB
+  liquibase:
+    enabled: false
+    changelog: classpath:/db/changelog/db.changelog-master.xml
+  datasource:
+#    url: jdbc:mysql://localhost:3306/trade_analysis_data_demo?useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2B8
+#    url: jdbc:mysql://47.92.156.176:3306/trade_analysis_data_demo?useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2B8
+#    url: jdbc:mysql://22.38.19.129:3306/trade_analysis_data?useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2B8
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#    user: root
+#    username: root
+#    password: tuji2013
+#    datasource: trade_analysis_data_demo
+    driver-class-name: org.apache.phoenix.jdbc.PhoenixDriver
+    url: jdbc:phoenix:39.98.144.222:2181
+    username:
+    password:
+#    type: org.apache.phoenix.jdbc.PhoenixDriver
+    druid:
+      # 连接池配置
+      initial-size: 1
+      max-active: 20
+      min-idle: 1
+      max-wait: 60000
+      # 是否缓存preparedStatement，也就是PSCache。PSCache对支持游标的数据库性能提升巨大，比如说oracle。在mysql下建议关闭
+      pool-prepared-statements: false
+      # 要启用PSCache，必须配置大于0，当大于0时，poolPreparedStatements自动触发修改为true。
+      # 在Druid中，不会存在Oracle下PSCache占用内存过多的问题，可以把这个数值配置大一些，比如说100
+      # max-pool-prepared-statement-per-connection-size:
+      max-open-prepared-statements: 20
+      # 配置多个英文逗号分隔
+      filters: stat,log4j
+      # WebStatFilter配置，说明请参考Druid Wiki，配置_配置WebStatFilter
+      # 是否启用StatFilter默认值false
+      web-stat-filter.enabled: true
+      web-stat-filter.url-pattern: /druid/*
+      web-stat-filter.exclusions:
+      web-stat-filter.session-stat-enable:
+      web-stat-filter.session-stat-max-count:
+      web-stat-filter.principal-session-name:
+      web-stat-filter.principal-cookie-name:
+      web-stat-filter.profile-enable:
+      # StatViewServlet配置，说明请参考Druid Wiki，配置_StatViewServlet配置
+      # 是否启用StatViewServlet（监控页面）默认值为false
+      stat-view-servlet.enabled: true
+      stat-view-servlet.url-pattern: /druid/*
+      stat-view-servlet.reset-enable: true
+      stat-view-servlet.login-username: root
+      stat-view-servlet.login-password: togeek
+      stat-view-servlet.allow:
+      stat-view-servlet.deny:
+      # Spring监控配置，说明请参考Druid Github Wiki，配置_Druid和Spring关联监控配置
+      # Spring监控AOP切入点，如x.y.z.service.*,配置多个英文逗号分隔
+      # aop-patterns:
+      filter:
+        stat:
+          enabled: true
+          db-type: mysql
+          log-slow-sql: true
+          slow-sql-millis: 2000
+#  data:
+#    mongodb:
+#      host: 10.61.16.213
+#      port: 27017
+#      database: attachment
+#      username: togeek
+#      password: tuji2013
+
+mybatis-plus:
+  mapper-locations: classpath*:/mapper/**/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
+
+feign:
+  hystrix:
+    enabled: true
+
+train:
+  model-url: http://192.168.16.133:8080/el-prediction/customer_intraday/train
+  forecast-url: http://192.168.16.133:8080/el-prediction/customer_intraday/eval
+  model-name: forecast
+  callback-host: http://192.168.3.45:8089/trade-center-analysis/no-auth/ci_model/
